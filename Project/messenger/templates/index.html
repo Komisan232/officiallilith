@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чат</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .chat-box {
+            height: 400px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .chat-message {
+            margin-bottom: 10px;
+        }
+        .chat-message span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Чат</h1>
+
+        <div class="chat-box">
+            <!-- Выводим сообщения чата -->
+            {% for message in messages %}
+                <div class="chat-message">
+                    <span>{{ message.user.nickname }}:</span> {{ message.content }}
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Форма для отправки сообщения -->
+        <form method="POST" action="{{ url_for('send_message') }}">
+            <div class="form-group">
+                <textarea class="form-control" name="message" rows="3" placeholder="Введите сообщение"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Отправить</button>
+        </form>
+
+        <div class="mt-3">
+            <a href="{{ url_for('login') }}" class="btn btn-secondary">Выйти</a>
+        </div>
+    </div>
+</body>
+</html>
